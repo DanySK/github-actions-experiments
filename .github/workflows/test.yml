@@ -1,0 +1,20 @@
+name: test
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-2025, macos-14, ubuntu-24.04 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Step with dashed ids
+        id: dashed-id
+        run: echo "pippo/pluto-paperino=22" >> $GITHUB_OUTPUT
+      - name: Use dashed ids
+        shell: bash
+        run: echo '${{ steps.dashed-id.ouputs.pippo/pluto-paperino }}'
+      
